@@ -1,0 +1,29 @@
+FX2LPTool - Tool to manipulate Cypress EZ-USB FX2LP devices.
+Copyright (c) 2013 by the following:
+
+Sven Hesse (DrMcCoy) <drmccoy@drmccoy.de>
+
+
+FX2LPTool is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License version
+2 as published by the Free Software Foundation.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+
+
+"EZ-USB" and "FX2LP" are registered trademarks of Cypress Semiconductor
+Corporation.
+
+
+CyUSB Suite
+***********
+   FX2LPTool is partially based on the CyUSB Suite for Linux by Cypress
+   Semiconductor Corporation. The CyUSB Suite for Linux is licensed under
+   version 2 of the GNU General Public License.
