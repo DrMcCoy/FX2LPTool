@@ -1,0 +1,16 @@
+/**
+
+@mainpage FX2LPTool
+
+@author Sven Hesse (DrMcCoy)
+
+@section README
+@verbinclude README.md
+
+@section Credits
+@verbinclude AUTHORS
+
+@section License
+@verbinclude COPYING
+
+*/
