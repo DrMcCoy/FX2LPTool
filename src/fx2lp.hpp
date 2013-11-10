@@ -32,37 +32,51 @@
 int fx2_reset(libusb_device_handle *h, int cpu_enable);
 int fx2_load_vendax(libusb_device_handle *h);
 
+/** Class handling all FX2LP interfacing. */
 class FX2LP {
 public:
+		/** Constructor for the FX2LP handling class
+		 *
+		 *  @param vendorID  Vendor ID of the USB device.
+		 *  @param productID Product ID of the USB device.
+		 */
 		FX2LP(uint16 vendorID, uint16 productID);
 		~FX2LP();
 
-		void init();
-		void deinit();
-
+		/** Read the device's EEPROM. */
 		void readEEPROM(byte *data, uint16 size);
+		/** Write the device's EEPROM. */
 		void writeEEPROM(byte *data, uint16 size);
 
+		/** Read the device's EEPROM and verify that it matches with the specified data. */
 		bool verifyEEPROM(byte *data, uint16 size);
 
+		/** Read the device's EEPROM and verify that the vendor/product IDs match. */
 		bool verifyVendorProductID();
 
 
 private:
-		static const uint16 kCPUAddress = 0xE600;
-		static const byte   kVendAX[];
+		static const uint16 kCPUAddress = 0xE600; ///< Address of the CPU program memory.
+		static const byte   kVendAX[];            ///< Default vendor program.
 
-		uint16 _vendorID;
-		uint16 _productID;
+		uint16 _vendorID;  ///< The vendor ID of the USB device.
+		uint16 _productID; ///< The product ID of the USB device.
 
-		libusb_device_handle *_usbHandle;
+		libusb_device_handle *_usbHandle; ///< The handle of the USB device.
 
 
+		void init();
+		void deinit();
+
+		/** Reset the FX2LP device. */
 		void reset(bool enableCPU);
+		/** Write an intel hex file into the CPU program memory. */
 		void writeIntelHex(const byte *data, uint32 size);
 
+		/** Load the default vendor program into the CPU program memory. */
 		void loadVendAX();
 
+		/** Perform an USB control transfer. */
 		void controlTransfer(uint16 type, uint16 request, uint16 value, uint16 index, byte *data, uint16 length);
 };
 

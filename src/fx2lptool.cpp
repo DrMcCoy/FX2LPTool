@@ -33,8 +33,6 @@ int main(void) {
 	try {
 		FX2LP fx2lp(0x0925, 0x3881);
 
-		fx2lp.init();
-
 		byte data[8];
 		fx2lp.readEEPROM(data, 8);
 
