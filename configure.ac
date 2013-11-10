@@ -55,7 +55,7 @@ AC_CHECK_FUNCS([fminf])
 AC_CHECK_FUNCS([fmaxf])
 
 dnl libusb
-PKG_CHECK_MODULES([LIBUSB], [libusb >= 0.1.12])
+PKG_CHECK_MODULES([LIBUSB], [libusb-1.0 >= 1.0.9])
 
 dnl Extra flags
 case "$target" in

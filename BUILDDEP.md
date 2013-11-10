@@ -1,4 +1,4 @@
 Build-time library dependencies
 ===============================
 
-- libusb (>= 0.1.12)
+- libusb (>= 1.0.9)
