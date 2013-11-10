@@ -81,6 +81,7 @@ AC_SUBST(LIBUSB_LIBS)
 
 AC_SUBST(WERROR)
 
+AC_CONFIG_FILES([gitstamp/Makefile])
 AC_CONFIG_FILES([src/Makefile])
 AC_CONFIG_FILES([Makefile])
 

@@ -2,7 +2,7 @@ ACLOCAL_AMFLAGS = -I m4 --install
 
 EXTRA_DIST = README.md
 
-SUBDIRS = src
+SUBDIRS = gitstamp src
 
 doxygen:
 	doxygen
