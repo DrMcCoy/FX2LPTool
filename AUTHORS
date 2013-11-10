@@ -27,3 +27,8 @@ CyUSB Suite
    FX2LPTool is partially based on the CyUSB Suite for Linux by Cypress
    Semiconductor Corporation. The CyUSB Suite for Linux is licensed under
    version 2 of the GNU General Public License.
+
+   More specifically, the information on which USB requests to send has
+   been taken out of the CyUSB Suite sources. FX2LPTool also uses the
+   original Cypress FX2 vend_ax firmware to aid in interfacing with the
+   Cypress FX2 chip.

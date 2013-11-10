@@ -29,6 +29,7 @@
 #include "error.hpp"
 #include "util.hpp"
 
+/** Original Cypress FX2 vend_ax firmware. */
 const byte FX2LP::kVendAX[] = {
 	":0a0d3e0000010202030304040505"
 	":10064d00E4F52CF52BF52AF529C203C200C202C2"
