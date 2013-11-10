@@ -1,0 +1,20 @@
+AUTOMAKE_OPTIONS = subdir-objects
+
+EMPTY =
+
+LIBSF_C_CXX = $(FX2LPTOOL_CFLAGS) $(LIBUSB_CFLAGS)
+LIBSF_C     =
+LIBSF_CXX   =
+
+LIBSL = $(FX2LPTOOL_LIBS) $(LIBUSB_LIBS)
+
+FLAGS_C_CXX = -I$(top_srcdir) -I$(top_srcdir)/src/ -ggdb -Wall -Wno-multichar \
+              -Wpointer-arith -Wshadow $(WERROR)
+FLAGS_C     =
+FLAGS_CXX   = -Wnon-virtual-dtor
+
+AM_CFLAGS   = $(FLAGS_C_CXX) $(FLAGS_C)   $(LIBSF_C_CXX) $(LIBSF_C)
+AM_CXXFLAGS = $(FLAGS_C_CXX) $(FLAGS_CXX) $(LIBSF_C_CXX) $(LIBSF_CXX)
+AM_LDFLAGS  = $(LIBSL)
+
+LIBS =
