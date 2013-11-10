@@ -156,4 +156,8 @@ void status(const char *s, ...) GCC_PRINTF(1, 2);
 
 void NORETURN_PRE error(const char *s, ...) GCC_PRINTF(1, 2) NORETURN_POST;
 
+
+uint8  convertStringToHexByte(const char *s);
+uint16 convertStringToHexWord(const char *s);
+
 #endif // UTIL_HPP

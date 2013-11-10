@@ -27,11 +27,7 @@
 
 #include "fx2lp.hpp"
 #include "error.hpp"
-
-#define CHAR_TO_HEXVAL(c) ((((c) >= '0') && ((c) <= '9')) ? ((c) - '0') : ((((c) - 'A') & 0x0F) + 10))
-#define GET_HEX_BYTE(char_p) (((CHAR_TO_HEXVAL((char_p)[0])) << 4) | (CHAR_TO_HEXVAL((char_p)[1])))
-#define GET_HEX_WORD(char_p) (((CHAR_TO_HEXVAL((char_p)[0])) << 12) | ((CHAR_TO_HEXVAL((char_p)[1])) << 8) | \
-		((CHAR_TO_HEXVAL((char_p)[2])) << 4) | (CHAR_TO_HEXVAL((char_p)[3])))
+#include "util.hpp"
 
 const byte FX2LP::kVendAX[] = {
 	":0a0d3e0000010202030304040505"
@@ -326,9 +322,9 @@ void FX2LP::writeIntelHex(const byte *data, uint32 size) {
 		if (data[0] != ':')
 			throw Exception("Malformed intel hex file (0x%02X)", data[0]);
 
-		uint8  count   = GET_HEX_BYTE(data + 1);
-		uint16 address = GET_HEX_WORD(data + 3);
-		uint8  type    = GET_HEX_BYTE(data + 7);
+		uint8  count   = convertStringToHexByte((const char *)data + 1);
+		uint16 address = convertStringToHexWord((const char *)data + 3);
+		uint8  type    = convertStringToHexByte((const char *)data + 7);
 
 		if (type == 0x01)
 			break;
@@ -342,7 +338,7 @@ void FX2LP::writeIntelHex(const byte *data, uint32 size) {
 			throw Exception("Not enough data for record (%d vs %d)", count * 2, size);
 
 		for (uint32 i = 0; i < count; i++, size -= 2, data += 2)
-			line[i] = GET_HEX_BYTE(data);
+			line[i] = convertStringToHexByte((const char *)data);
 
 		controlTransfer(0x40, 0xA0, address, 0x00, line, count);
 	}

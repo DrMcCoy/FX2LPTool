@@ -23,6 +23,7 @@
  */
 
 #include "util.hpp"
+#include "error.hpp"
 
 #include <cstdio>
 #include <cstdlib>
@@ -71,4 +72,24 @@ void NORETURN_PRE error(const char *s, ...) {
 #endif
 
 	std::exit(1);
+}
+
+static uint8 convertCharToHexDigit(char c) {
+	if ((c >= '0') && (c <= '9'))
+		return c - '0';
+	if ((c >= 'A') && (c <= 'F'))
+		return c - 'A' + 10;
+	if ((c >= 'a') && (c <= 'f'))
+		return c - 'a' + 10;
+
+	throw Exception("Invalid hex digit (0x%02X)", c);
+}
+
+uint8 convertStringToHexByte(const char *s) {
+	return convertCharToHexDigit(s[0]) << 4 | convertCharToHexDigit(s[1]);
+}
+
+uint16 convertStringToHexWord(const char *s) {
+	return convertCharToHexDigit(s[0]) << 12 | convertCharToHexDigit(s[1]) << 8 |
+	       convertCharToHexDigit(s[2]) <<  4 | convertCharToHexDigit(s[3]);
 }
