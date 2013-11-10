@@ -24,11 +24,13 @@ noinst_HEADERS = \
                  version.hpp \
                  util.hpp \
                  error.hpp \
+                 fx2lp.hpp \
                  $(EMPTY)
 
 fx2lptool_SOURCES = \
                   version.cpp \
                   util.cpp \
                   error.cpp \
+                  fx2lp.cpp \
                   fx2lptool.cpp \
                   $(EMPTY)

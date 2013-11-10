@@ -18,33 +18,47 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-/** @file fx2lptool.cpp
- *  The project's main entry point.
+/** @file fx2lpp.hpp
+ *  Handling the FX2LP device fiddling.
  */
 
-#include <stdio.h>
+#ifndef FX2LP_HPP
+#define FX2LP_HPP
+
 #include <libusb.h>
 
-#include "util.hpp"
-#include "error.hpp"
-#include "fx2lp.hpp"
+#include "types.hpp"
 
-int main(void) {
-	try {
-		FX2LP fx2lp(0x0925, 0x3881);
+int fx2_reset(libusb_device_handle *h, int cpu_enable);
+int fx2_load_vendax(libusb_device_handle *h);
 
-		fx2lp.init();
+class FX2LP {
+public:
+		FX2LP(uint16 vendorID, uint16 productID);
+		~FX2LP();
 
-		byte data[8];
-		fx2lp.readEEPROM(data, 8);
+		void init();
+		void deinit();
 
-		printf("Got data: 0x%02X 0x%02X 0x%02X 0x%02X 0x%02X 0x%02X 0x%02X 0x%02X\n",
-		       data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7]);
+		void readEEPROM(byte *data, uint16 size);
 
-	} catch(Exception &e) {
-		printException(e);
-		return -1;
-	}
 
-	return 0;
-}
+private:
+		static const uint16 kCPUAddress = 0xE600;
+		static const byte   kVendAX[];
+
+		uint16 _vendorID;
+		uint16 _productID;
+
+		libusb_device_handle *_usbHandle;
+
+
+		void reset(bool enableCPU);
+		void writeIntelHex(const byte *data, uint32 size);
+
+		void loadVendAX();
+
+		void controlTransfer(uint16 type, uint16 request, uint16 value, uint16 index, byte *data, uint16 length);
+};
+
+#endif // FX2LP_HPP
