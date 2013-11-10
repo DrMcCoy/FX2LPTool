@@ -41,6 +41,9 @@ public:
 		void deinit();
 
 		void readEEPROM(byte *data, uint16 size);
+		void writeEEPROM(byte *data, uint16 size);
+
+		bool verifyEEPROM(byte *data, uint16 size);
 
 		bool verifyVendorProductID();
 

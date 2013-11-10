@@ -23,6 +23,7 @@
  */
 
 #include <stdio.h>
+#include <string.h>
 
 #include "fx2lp.hpp"
 #include "error.hpp"
@@ -386,4 +387,28 @@ bool FX2LP::verifyVendorProductID() {
 	uint16 productID = ((uint16)data[4] << 8) | data[3];
 
 	return ((vendorID == _vendorID) && (productID == _productID));
+}
+
+void FX2LP::writeEEPROM(byte *data, uint16 size) {
+	try {
+		init();
+		loadVendAX();
+		controlTransfer(0x40, 0xA2, 0x00, 0x00, data, size);
+	} catch (Exception &e) {
+		e.add("Failed to write EEPROM");
+		throw e;
+	}
+}
+
+bool FX2LP::verifyEEPROM(byte *data, uint16 size) {
+	byte buffer[8];
+
+	try {
+		readEEPROM(buffer, 8);
+	} catch (Exception &e) {
+		printException(e, "WARNING: ");
+		return false;
+	}
+
+	return memcmp(data, buffer, size) == 0;
 }
