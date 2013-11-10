@@ -42,6 +42,8 @@ public:
 
 		void readEEPROM(byte *data, uint16 size);
 
+		bool verifyVendorProductID();
+
 
 private:
 		static const uint16 kCPUAddress = 0xE600;

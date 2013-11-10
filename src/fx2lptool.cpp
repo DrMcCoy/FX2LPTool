@@ -41,6 +41,8 @@ int main(void) {
 		printf("Got data: 0x%02X 0x%02X 0x%02X 0x%02X 0x%02X 0x%02X 0x%02X 0x%02X\n",
 		       data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7]);
 
+		printf("Verifying vendor/product ID... %s\n", fx2lp.verifyVendorProductID() ? "pass" : "fail");
+
 	} catch(Exception &e) {
 		printException(e);
 		return -1;

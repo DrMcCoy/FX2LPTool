@@ -366,3 +366,24 @@ void FX2LP::controlTransfer(uint16 type, uint16 request, uint16 value, uint16 in
 	else if (result != length)
 		throw Exception("Requested %d bytes, but %d were processed", length, result);
 }
+
+bool FX2LP::verifyVendorProductID() {
+	byte data[8];
+
+	try {
+		readEEPROM(data, 8);
+	} catch (Exception &e) {
+		printException(e, "WARNING: ");
+		return false;
+	}
+
+	if (data[0] != 0xC0) {
+		printf("Device is not a Cypress device\n");
+		return false;
+	}
+
+	uint16 vendorID  = ((uint16)data[2] << 8) | data[1];
+	uint16 productID = ((uint16)data[4] << 8) | data[3];
+
+	return ((vendorID == _vendorID) && (productID == _productID));
+}
